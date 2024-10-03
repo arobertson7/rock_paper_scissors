@@ -6,6 +6,84 @@
     <title>Document</title>
 </head>
 <body>
+
+    <script>
+
+        function playGame()
+        {
+            let humanScore = 0;
+            let computerScore = 0;
+
+            function getComputerChoice()
+            {
+                let choice = "";
+                let num = Math.floor(Math.random() * 100);
+                if (num < 33)
+                {
+                    choice = "Rock";
+                }
+                else if (num < 66)
+                {
+                    choice = "Paper";
+                }
+                else
+                {
+                    choice = "Scissors";
+                }
+                return choice;
+            }
+            
+            function getHumanChoice()
+            {
+                let choice = "";
+                while (choice.toUpperCase() !== "ROCK" && choice.toUpperCase() !== "PAPER" && choice.toUpperCase() !== "SCISSORS")
+                {
+                    choice = prompt("Rock, Paper, or Scissors?");
+                }
+                return (choice[0].toUpperCase() + choice.slice(1, choice.length));
+            }
+
+            function playRound(humanChoice, computerChoice)
+            {
+                if (humanChoice === "Rock" && computerChoice === "Rock" || humanChoice === "Paper" && computerChoice === "Paper" || humanChoice === "Scissors" && computerChoice === "Scissors")
+                {
+                    console.log("Tie! Play again");
+                    playRound(getHumanChoice(), getComputerChoice());
+                }
+                else if (humanChoice === "Rock" && computerChoice === "Scissors" || humanChoice === "Paper" && computerChoice === "Rock" || humanChoice === "Scissors" && computerChoice === "Paper")
+                {
+                    console.log("You win! " + humanChoice + " beats " + computerChoice + ".");
+                    humanScore++;
+                    console.log("Score:\nYou: " + humanScore + " | Computer: " + computerScore);
+                }
+                else
+                {
+                    console.log("You lose! " + computerChoice + " beats " + humanChoice + ".")
+                    computerScore++;
+                    console.log("Score:\nYou: " + humanScore + " | Computer: " + computerScore);
+                }
+            }
+
+            console.log("Best 3 out of 5. Let's play!");
+
+            while (humanScore < 3 && computerScore < 3)
+            {
+                playRound(getHumanChoice(), getComputerChoice());
+            }
+
+            if (humanScore > computerScore)
+            {
+                console.log("You won! The humans are still in the lead! For now...")
+            }
+            else
+            {
+                console.log("You lost! Uh oh, the computers have officially gained the advantage...")
+            }
+        }
+
+        playGame();
+
+    </script>
     
 </body>
 </html>
